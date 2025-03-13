@@ -4,8 +4,6 @@ import jwt
 from datetime import datetime, timedelta
 import streamlit as st
 
-# Load environment variables
-dotenv.load_dotenv()
 
 
 # Call ID to retrieve
@@ -21,8 +19,8 @@ call_ids = [
 
 def get_call_data(call_id):
     # Get credentials from environment variables
-    org_id = os.getenv("ORG_ID")
-    private_key = os.getenv("VAPI_AUTH_TOKEN")
+    org_id = st.secrets["ORG_ID"]
+    private_key = st.secrets["VAPI_AUTH_TOKEN"]
     
     # Generate JWT payload
     payload = {
@@ -52,7 +50,7 @@ def get_call_data(call_id):
         st.error(f"Error: {response.status_code}")
         st.error(response.text)
 
-st.title("AI agent Logs")
+st.title("AI Agent Chat Logs")
 # Select the Callid
 selected_call_id = st.selectbox("Select the Call ID", call_ids)
 
