@@ -1,4 +1,3 @@
-from fastapi import FastAPI
 import requests
 import dotenv
 import os
@@ -9,15 +8,14 @@ import streamlit as st
 # Load environment variables
 dotenv.load_dotenv()
 
-# Create FastAPI app
-app = FastAPI()
 
 # Call ID to retrieve
 call_ids = [
     "a7e95587-8023-4823-882f-528414dee193",
     "1d6e6aed-2841-4062-ad6f-853aac109663",
     "19246cfb-23f6-4460-b69c-0ec0e69f7e39",
-    "d799c7a2-399f-4ac2-9927-13da85f4936d"
+    "d799c7a2-399f-4ac2-9927-13da85f4936d",
+    "a41a8404-6850-48a6-ba45-655fb9dc3945"
 
 ]
 
@@ -70,23 +68,23 @@ if selected_call_id:
             "Started at": call_data["startedAt"],
             "Ended at": call_data["endedAt"],
             "Ended reason": call_data["endedReason"],
-            "Duration": call_data["duration"]
+    
         })
 
         st.divider()
-        st.subheader["Summary"]
-        st.write[call_data['analysis']['summary']]
+        st.subheader("Summary")
+        st.write(call_data['analysis']['summary'])
 
-        st.write["Topics"]
-        for topic in call_data['analysis']['structured data']['topics']:
-            st.write[f"{topic['topic']} - {topic['sentiment']}"]
+        st.subheader("Topics")
+        for topic in call_data['analysis']['structuredData']['topics']:
+            st.write(f"- {topic}")
         
-        st.subheader[f"Success Evaluation: {call_data['analysis']['successEvaluation']}"]
+        st.subheader(f"Success Evaluation: {call_data['analysis']['successEvaluation']}")
 
         st.divider()
 
-        st.subheader["Transcript"]
-        st.text_area["Transcript", call_data['transcript']], height=400
+        st.subheader("Transcript")
+        st.text_area("Transcript", call_data['transcript'], height=400)
 
         st.divider()
         st.subheader("Recordings")
